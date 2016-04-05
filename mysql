@@ -1,0 +1,17 @@
+
+CREATE TABLE `to_do_list` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `description` varchar(150) NOT NULL,
+  `priority` int(6) DEFAULT NULL,
+  `state` tinyint(1) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+
+UPDATE `to_do_list` SET `created_at` = NOW() WHERE `to_do_list`.`id` = 1;
+
+ALTER TABLE `to_do_list` ADD `created_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(6) AFTER `state`;
+
+ALTER TABLE `to_do_list` CHANGE `created_at` `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;

@@ -1,13 +1,10 @@
-<?php include('header.php') 
+<?php
+include('functions.php');
+include('header.php'); 
+
 
 $allTodo = array();
-
-function my_autoloader($class) {
-    include 'lib/' . $class . '.php';
-}
-
-spl_autoload_register('my_autoloader');
-
+$singleId = array();
 
 ?>
 <table>
@@ -20,32 +17,32 @@ spl_autoload_register('my_autoloader');
 	</tr>
 
 <?php
-	$allTodo= getTodoList();
+	$todo = new ToDoListService;
+	$allTodo = $todo->getToDoList();
+	
+
+	
 if (!empty($allTodo)) {
-	foreach ($allTodo as $todo) : ?>
-		<tr>
-			<td><?php echo $todo["id"]?></td>
-			<td><?php echo $todo["title"]?></td>
-			<td><?php echo $todo["created_at"]?></td>
-			<td><?php echo $todo["priority"]?></td>
-			<td><?php echo $todo["state"]?></td>		
-		</tr>
+	foreach ($allTodo as $td) : ?>
+			<tr> 
+				<td><?php echo $td['id']?></td>
+				<td><?php echo $td["title"]?></td>
+				<td><?php echo $td["created_at"]?></td>
+				<td><?php echo $td["priority"]?></td>
+				<td><?php echo $td["state"]?></td>		
+			</tr>
 	 <?php endforeach;
 }
+	//Одна запись
+	$singleId=$todo->getTodo(3);
+	echo $singleId['description'];
+	//удаление по ID
+	$todo->deleteTodo(2);
+	//Update
+	updateTodo($allTodo);
 ?>
-
-<tr>
-<td>
-</td>
-</tr>
-
-<tr>
-<td>
-</td>
-</tr>
-
-
 </table>
+
 
 <button class="addNew">Add New</button>
 
