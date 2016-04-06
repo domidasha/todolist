@@ -9,11 +9,11 @@ class ToDoListService {
 		$this->connector = MysqlDbConnector::getInstance();
 	}
 	
-	function createTodo($todo) {
+	public function createTodo($todo) {
 
 	}
 
-	function updateTodo($todo) {
+	public function updateTodo($todo) {
 		$con = $this->connector->getConnection();
 
 		$string0 = addslashes($todo['title']);
@@ -34,14 +34,14 @@ class ToDoListService {
     
 	}
 
-	function deleteTodo($id) {
+	public function deleteTodo($id) {
 		$con = $this->connector->getConnection();
 		$stmt = $con-> prepare('delete from to_do_list where id = ?');
 		$stmt->execute(array($id));
 		$this->getTodoList();		
 	}
 
-	function getTodo($id) {
+	public function getTodo($id) {
 		
 		$con = $this->connector->getConnection();
 		$stmt = $con-> prepare('select * from to_do_list where id = ?');

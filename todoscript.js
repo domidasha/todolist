@@ -18,22 +18,35 @@
 			});
 			
 			
-			$('.submit').click(function() {
-				   var todo = {
-						   'title': $(".title").val(),
-						   'description': $(".description").val(),
-						   'priority': $(".priority option:selected").text(),
-						   'state': $(".state").is(':checked'),
-				   }
+			$('form').on("submit", function() {
+				
+				
+				
+				var data = {
+					action: "create",
+					todo: {
+						title: $(".title").val(),
+						description: $(".description").val(),
+						priority: $(".priority option:selected").text(),
+						state: $(".state").is(':checked'),
+					}
+				};
+				
+				
+				console.log(data);
+				
 
 				   $.ajax({
+					   url: "/todoAjax.php",
 					    type: 'post',
-					    data: JSON.stringify(todos),
-					    contentType: 'application/json',
-					    dataType: 'json'
+					    data: data,
+					    dataType: 'json',
+					    success: function(response){
+					    	console.log(response);
+					    }
 					});	
 				
-				$(".title").val($(".priority option:selected").text());
-			
-		})
+				   return false;   
+		
+			});
 		})
