@@ -36,15 +36,24 @@ if (!empty($allTodo)) {
 	//Одна запись
 	$singleId=$todo->getTodo(3);
 	echo $singleId['description'];
+	
 	//удаление по ID
-	$todo->deleteTodo(2);
+	$todo->deleteTodo(6);
+	
 	//Update
-	updateTodo($allTodo);
+	$example['title']="item";
+	$example['description']="description of an item";
+	$example['priority']=2;
+	$example['state']='fasle';
+
+	//$todo->updateTodo($example);
 ?>
 </table>
 
 
-<button class="addNew">Add New</button>
+<button class="addnew">Add New</button>
+<p id="title"></p>
+<p id="description"></p>
 
 <?php include('footer.php') ?>
 

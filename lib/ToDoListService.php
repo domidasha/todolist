@@ -1,8 +1,7 @@
 
 <?php
 
-class ToDoListService {
-	
+class ToDoListService {	
 	
 	private $connector;
 
@@ -15,7 +14,24 @@ class ToDoListService {
 	}
 
 	function updateTodo($todo) {
-		 
+		$con = $this->connector->getConnection();
+
+		$string0 = addslashes($todo['title']);
+	    $string1 = addslashes($todo['description']);
+	    $string2 = addslashes($todo['priority']);
+	    $string3 = addslashes($todo['state']);
+
+
+	    $sql = sprintf("insert into to_do_list (title, description, priority, state) values ('%s', '%s', %s, '%s')",$string0, $string1, $string2, $string3);
+
+	    $stmt = $con->query($sql);
+
+		// $stmt = $con-> prepare($sql);
+		// $stmt->execute(array($id));
+		// $this->getTodoList();	
+
+	   // print_r($sql);
+    
 	}
 
 	function deleteTodo($id) {
