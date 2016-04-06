@@ -51,9 +51,48 @@ if (!empty($allTodo)) {
 </table>
 
 
-<button class="addnew">Add New</button>
-<p id="title"></p>
-<p id="description"></p>
+<button class='open'>Add New</button>
+
+ 	<div class="popup-window">	<!--//форма для заполнения -->
+		<p class="close">x</p>	
+		<form method="POST">
+		<table>
+			<tr>
+				<td>
+					Title:
+				</td>
+				<td>
+					<input type="text" class="title"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Description:</td>
+				<td>
+					<textarea type="text" class="description"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td >Prioriy:</td>
+				<td>					
+					<select class="priority">
+     				<option>HIGH</option>
+     				<option>MIDDLE</option>
+     				<option>LOW</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>State:</td>
+				<td><input type="checkbox" class="state"/></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" class="submit"/>
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
 
 <?php include('footer.php') ?>
 

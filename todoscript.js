@@ -1,15 +1,39 @@
-$(document).ready(function(){
+		
+	$.fn.popup = function() { 	//функция для открытия всплывающего окна:
+			this.css('position', 'absolute').fadeIn();	//задаем абсолютное позиционирование и эффект открытия
+			//махинации с положением сверху:учитывается высота самого блока, экрана и позиции на странице:
+			this.css('top', ($(window).height() - this.height()) / 2 + $(window).scrollTop() + 'px');
+			//слева задается отступ, учитывается ширина самого блока и половина ширины экрана
+			this.css('left', ($(window).width() - this.width()) / 2  + 'px');
+			//открываем тень с эффектом:
+			$('.backpopup').fadeIn();
+		}
+		$(document).ready(function(){	//при загрузке страницы:
+			$('.open').click(function(){	//событие клик на нашу ссылку
+				$('.popup-window').popup();	//запускаем функцию на наш блок с формой
+			});
+			$('.backpopup,.close').click(function(){ //событие клик на тень и крестик - закрываем окно и тень:
+				$('.popup-window').fadeOut();
+				$('.backpopup').fadeOut();
+			});
+			
+			
+			$('.submit').click(function() {
+				   var todo = {
+						   'title': $(".title").val(),
+						   'description': $(".description").val(),
+						   'priority': $(".priority option:selected").text(),
+						   'state': $(".state").is(':checked'),
+				   }
 
-	//hide- show
-	$(".addnew").click(function(){
-
-    var title = prompt("Title", "My new task");
-    var description = prompt("Description", "About my day");
-    //var person = prompt("Title", "My new task");
-    
-    if (title!= null) {
-        document.getElementById("title").innerHTML = title;
-        document.getElementById("description").innerHTML = description;
-    }
-	})
-})
+				   $.ajax({
+					    type: 'post',
+					    data: JSON.stringify(todos),
+					    contentType: 'application/json',
+					    dataType: 'json'
+					});	
+				
+				$(".title").val($(".priority option:selected").text());
+			
+		})
+		})
