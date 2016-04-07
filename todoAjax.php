@@ -7,12 +7,14 @@ if (isset($_POST['action']) && $_POST['action'] == "create") {
 	//create item
 	$todo = $_POST['todo'];
 
+
 	//validate income data
 	
 	$servise = new ToDoListService();
-	$newTodo = $servise.create($todo);
+	$newTodo = $servise->createToDo($todo);
 	$response["success"] = true;
 	$response["todo"] = $newTodo;
+
 }
 
 else if (isset($_POST['action']) && $_POST['action'] == "update") {

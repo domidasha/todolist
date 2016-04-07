@@ -26,7 +26,7 @@ if (!empty($allTodo)) {
 	foreach ($allTodo as $td) : ?>
 			<tr> 
 				<td><?php echo $td['id']?></td>
-				<td><?php echo $td["title"]?></td>
+				<td><a href="#" class="singleItem"><?php echo $td["title"]?></a></td>
 				<td><?php echo $td["created_at"]?></td>
 				<td><?php echo $td["priority"]?></td>
 				<td><?php echo $td["state"]?></td>		
@@ -38,18 +38,16 @@ if (!empty($allTodo)) {
 	echo $singleId['description'];
 	
 	//удаление по ID
-	$todo->deleteTodo(6);
+
+	// for ($i=7; $i<10; $i++) {
+	// $todo->deleteTodo($i);}
+
+
 	
 	//Update
-	$example['title']="item";
-	$example['description']="description of an item";
-	$example['priority']=2;
-	$example['state']='fasle';
 
-	//$todo->updateTodo($example);
 ?>
 </table>
-
 
 <button class='open'>Add New</button>
 
@@ -75,9 +73,9 @@ if (!empty($allTodo)) {
 				<td >Prioriy:</td>
 				<td>					
 					<select class="priority">
-     				<option>HIGH</option>
-     				<option>MIDDLE</option>
-     				<option>LOW</option>
+     				<option value="1">HIGH</option>
+     				<option value="2">MIDDLE</option>
+     				<option value="3">LOW</option>
 					</select>
 				</td>
 			</tr>

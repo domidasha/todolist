@@ -8,33 +8,33 @@
 			//открываем тень с эффектом:
 			$('.backpopup').fadeIn();
 		}
+
+
+
 		$(document).ready(function(){	//при загрузке страницы:
 			$('.open').click(function(){	//событие клик на нашу ссылку
 				$('.popup-window').popup();	//запускаем функцию на наш блок с формой
 			});
+
 			$('.backpopup,.close').click(function(){ //событие клик на тень и крестик - закрываем окно и тень:
 				$('.popup-window').fadeOut();
 				$('.backpopup').fadeOut();
 			});
 			
 			
-			$('form').on("submit", function() {
-				
-				
+			$('form').on("submit", function() {				
 				
 				var data = {
 					action: "create",
 					todo: {
-						title: $(".title").val(),
+						title: $ (".title").val(),
 						description: $(".description").val(),
-						priority: $(".priority option:selected").text(),
+						priority: $(".priority option:selected").val(),
 						state: $(".state").is(':checked'),
 					}
-				};
+				};				
 				
-				
-				console.log(data);
-				
+				console.log(data);				
 
 				   $.ajax({
 					   url: "/todoAjax.php",
@@ -50,3 +50,12 @@
 		
 			});
 		})
+
+
+		$('.singleItem').click(function(){	
+			$('.popup-window').popup();	
+		});
+
+
+
+
