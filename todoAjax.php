@@ -1,28 +1,43 @@
 <?php
 include('functions.php');
 
-$response["success"] = false;
+$response["success"] = 'no task added';
+
 
 if (isset($_POST['action']) && $_POST['action'] == "create") {
-	//create item
-	$todo = $_POST['todo'];
-
-
-	//validate income data
-	
+ 	$todo = $_POST['todo'];		
 	$servise = new ToDoListService();
-	$newTodo = $servise->createToDo($todo);
-	$response["success"] = true;
-	$response["todo"] = $newTodo;
+	//create item
+		$errorTitle = array();
+		$errorTitle = $servise->validateTitle($todo['title']);
+		if (empty($errorTitle)) {
+			$newTodo = $servise->createTodo($todo);
+			
+			$response["success"] = "Success";
+			$response["todo"] = $newTodo;
+		} else {
+			$responce["success"] = 'error';
+		}
+	}
 
-}
 
 else if (isset($_POST['action']) && $_POST['action'] == "update") {
-	//update item
+	
+	
 }
 
 else if (isset($_POST['action']) && $_POST['action'] == "get") {
-	//return item info
+		$newId = $_POST['todo'];		
+		$serv = new ToDoListService();
+		
+		//print_r($newId['id']);
+		$newTodo = $serv->getTodo($newId['id']);
+		$response["success"] = "Success";
+		$response["todo"] = $newTodo;	
+		//print_r($newTodo);
 }
 
 echo json_encode($response);
+
+
+

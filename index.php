@@ -19,14 +19,17 @@ $singleId = array();
 <?php
 	$todo = new ToDoListService;
 	$allTodo = $todo->getToDoList();
-	
+	for ($i=1; $i<25; $i++) {
+	$todo->deleteTodo($i);
+	}
 
 	
+		
 if (!empty($allTodo)) {
 	foreach ($allTodo as $td) : ?>
-			<tr> 
-				<td><?php echo $td['id']?></td>
-				<td><a href="#" class="singleItem"><?php echo $td["title"]?></a></td>
+			<tr > 
+				<td ><?php echo $td['id']?></td>
+				<td data-id=<?php echo $td["id"]?>><a href="#" class="singleItem"><?php echo $td["title"]?></a></td>
 				<td><?php echo $td["created_at"]?></td>
 				<td><?php echo $td["priority"]?></td>
 				<td><?php echo $td["state"]?></td>		
@@ -39,10 +42,7 @@ if (!empty($allTodo)) {
 	
 	//удаление по ID
 
-	// for ($i=7; $i<10; $i++) {
-	// $todo->deleteTodo($i);}
-
-
+	
 	
 	//Update
 
@@ -54,6 +54,7 @@ if (!empty($allTodo)) {
  	<div class="popup-window">	<!--//форма для заполнения -->
 		<p class="close">x</p>	
 		<form method="POST">
+		<p class='mode'></p>
 		<table>
 			<tr>
 				<td>
@@ -71,26 +72,29 @@ if (!empty($allTodo)) {
 			</tr>
 			<tr>
 				<td >Prioriy:</td>
-				<td>					
+				<td>		
+								
 					<select class="priority">
-     				<option value="1">HIGH</option>
-     				<option value="2">MIDDLE</option>
-     				<option value="3">LOW</option>
+					<?php foreach(PriorityType::getTypes() as $id => $name):?>>
+     					<option value="<?php echo $id ?>"><?php echo $name ?></option>
+     				<?php endforeach; ?>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>State:</td>
-				<td><input type="checkbox" class="state"/></td>
+				<td><input type="checkbox" class="state" value/></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" class="submit"/>
+					<p class='message'></p>
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
+	
 
 <?php include('footer.php') ?>
 

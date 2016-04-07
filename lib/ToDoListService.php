@@ -10,27 +10,30 @@ class ToDoListService {
 	}
 	
 	public function createTodo($todo) {
+		$con = $this->connector->getConnection();
+		
+		$stmt = $con-> prepare("INSERT into to_do_list (
+				title,
+				description,
+				priority,
+				state)
+				values ( ? , ? , ? , ?)");
+		$state = ($todo['state']) ? 1 : 0;
+		$stmt->execute(array($todo['title'], $todo['description'], $todo['priority'], $state));		
+		
+
 
 	}
 
 	public function updateTodo($todo) {
 		$con = $this->connector->getConnection();
-
-		$string0 = addslashes($todo['title']);
-	    $string1 = addslashes($todo['description']);
-	    $string2 = addslashes($todo['priority']);
-	    $string3 = addslashes($todo['state']);
-
-
-	    $sql = sprintf("insert into to_do_list (title, description, priority, state) values ('%s', '%s', %s, '%s')",$string0, $string1, $string2, $string3);
-
-	    $stmt = $con->query($sql);
-
-		// $stmt = $con-> prepare($sql);
-		// $stmt->execute(array($id));
-		// $this->getTodoList();	
-
-	   // print_r($sql);
+		$stmt = $con-> prepare("UPDATE to_do_list 
+				SET title = ?,
+				description = ?,
+				priority = ?,
+				state = ?
+				WHERE id = ?");
+		$stmt->execute(array($todo['title'], $todo['description'], $todo['priority'], $todo['state']), $todo['id']);
     
 	}
 
@@ -55,7 +58,7 @@ class ToDoListService {
 	
 	}
 
-	function getTodoList(){
+	public function getTodoList(){
 		$allTasks = array();
 		$con = $this->connector->getConnection();
 		
@@ -68,7 +71,20 @@ class ToDoListService {
  		 return $allTasks;
 	}
 	
-}
+	public function validateTitle($title) {
+	$error = array();
+	    if (empty($title)) {
+	    	$error[] = 'Title is empty. Enter title';
+	    }
+	    else if (iconv_strlen($title)<3) {
+	    	$error[] = 'Title is too short';
+	    }
+	    else if (iconv_strlen($title)>100) {
+	    	$error[] = 'Title is too long';
+	    }
+	    return $error;
+		}	
+	}
 
 
 ?>
