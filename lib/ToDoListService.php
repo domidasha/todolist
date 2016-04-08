@@ -26,6 +26,7 @@ class ToDoListService {
 	}
 
 	public function updateTodo($todo) {
+
 		$con = $this->connector->getConnection();
 		$stmt = $con-> prepare("UPDATE to_do_list 
 				SET title = ?,
@@ -33,8 +34,7 @@ class ToDoListService {
 				priority = ?,
 				state = ?
 				WHERE id = ?");
-		$stmt->execute(array($todo['title'], $todo['description'], $todo['priority'], $todo['state']), $todo['id']);
-    
+		$stmt->execute(array($todo['title'], $todo['description'], $todo['priority'], $todo['state'], $todo['id']));
 	}
 
 	public function deleteTodo($id) {

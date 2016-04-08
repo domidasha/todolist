@@ -7,7 +7,9 @@ $allTodo = array();
 $singleId = array();
 
 ?>
-<table>
+<button class='open'>Add New</button>
+
+<table class="main">
 	<tr>
 		<th>ID</th>
 		<th>Title</th>
@@ -18,43 +20,38 @@ $singleId = array();
 
 <?php
 
-
 	$todo = new ToDoListService;
 	$allTodo = $todo->getToDoList();
 	
-	//delete
-	for ($i=1; $i<25; $i++) {
-	$todo->deleteTodo($i);
-	}
-
 	
-		
 if (!empty($allTodo)) {
 	foreach ($allTodo as $td) : ?>
 			<tr > 
 				<td ><?php echo $td['id']?></td>
 				<td data-id=<?php echo $td["id"]?>><a href="#" class="singleItem"><?php echo $td["title"]?></a></td>
 				<td><?php echo $td["created_at"]?></td>
-				<td><?php echo $td["priority"]?></td>
+				<td><?php echo PriorityType::typeName($td["priority"])?></td>
 				<td><?php echo $td["state"]?></td>		
-				<td><a href='#' class="delete">x</a></td>
+				<td data-id=<?php echo $td["id"]?>><a href='#' class="delete">x</a></td>
 			</tr>
 	 <?php endforeach;
 }
 	//Одна запись
-	$singleId=$todo->getTodo(3);
+	/*$singleId=$todo->getTodo(3);
 	echo $singleId['description'];
 	
-	//удаление по ID
-
+	$example['id'] = 50;
+	$example['title'] = 'i am Dumbledor';
+	$example['description'] = 'no, I am Harry';
+	$example['priority'] = 2;
+	$example['state'] = true;
 	
-	
-	//Update
-
+	$todo->updateTodo($example);
+	*/
 ?>
 </table>
 
-<button class='open'>Add New</button>
+
 
  	<div class="popup-window">	<!--//форма для заполнения -->
 		<p class="close">x</p>	
@@ -62,10 +59,9 @@ if (!empty($allTodo)) {
 		<p class='mode'></p>
 		<table>
 			<tr>
+				<td>Title:</td>
 				<td>
-					Title:
-				</td>
-				<td>
+					<input type="hidden" class="id" value="0"/>
 					<input type="text" class="title"/>
 				</td>
 			</tr>
@@ -102,5 +98,3 @@ if (!empty($allTodo)) {
 	
 
 <?php include('footer.php') ?>
-
-

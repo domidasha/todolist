@@ -5,6 +5,12 @@
 <script src="todoscript.js"></script>
 
 <style type="text/css">
+		body{
+			margin:50px;
+		}
+		td {
+		padding: 5px;
+		}
 		.popup-window{	/* //форма для заполнения */
 			display: none;
 			box-shadow: 0px 0px 4px 0px rgb(70, 70, 70);
@@ -18,10 +24,11 @@
 			border-radius: 5px!important;
 		}
 		.open{ 	/*кнопка-ссылка*/
-			text-decoration: underline;
+			padding: 15px;
+			margin-bottom: 10px;
 			cursor: pointer;
 		}
-	.backpopup{		/* 	//тень */
+		.backpopup{		/* 	//тень */
 			display button:none;
 			width: 100%;
 			height: 100%;
@@ -40,6 +47,11 @@
 			top: 0px;
 			position: absolute;
 			padding: 4px;
+		}
+		.main {
+			margin-bottom: 15px; 
+		}
+			
 		}
 </style>
 </head>
