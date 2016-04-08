@@ -17,8 +17,12 @@ $singleId = array();
 	</tr>
 
 <?php
+
+
 	$todo = new ToDoListService;
 	$allTodo = $todo->getToDoList();
+	
+	//delete
 	for ($i=1; $i<25; $i++) {
 	$todo->deleteTodo($i);
 	}
@@ -33,6 +37,7 @@ if (!empty($allTodo)) {
 				<td><?php echo $td["created_at"]?></td>
 				<td><?php echo $td["priority"]?></td>
 				<td><?php echo $td["state"]?></td>		
+				<td><a href='#' class="delete">x</a></td>
 			</tr>
 	 <?php endforeach;
 }
